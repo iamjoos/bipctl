@@ -41,12 +41,12 @@ createWLSConfigs() {
 		stty echo
 	
 		$JAVA_HOME/bin/java weblogic.Admin \
-		                    -adminurl "${l_adminurl}" \
-		                    -username ${l_username} \
-							-password ${l_password} \
-							-userconfigfile "${WLS_CFG_FILE}" \
-							-userkeyfile "${WLS_KEY_FILE}" \
-							-STOREUSERCONFIG
+                            -adminurl "${l_adminurl}" \
+                            -username ${l_username} \
+                            -password ${l_password} \
+                            -userconfigfile "${WLS_CFG_FILE}" \
+                            -userkeyfile "${WLS_KEY_FILE}" \
+                            -STOREUSERCONFIG
 			
 		if ! [ -f "${WLS_CFG_FILE}"  ] || ! [ -f "${WLS_KEY_FILE}" ] ; then
 			echo "An error occured while creating files. Exiting."
