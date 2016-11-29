@@ -29,36 +29,35 @@ createWLSConfigs() {
 	if ! [ -f ${WLS_CFG_FILE} ] || ! [ -f ${WLS_KEY_FILE} ] ; then
 		local l_username l_password l_adminurl
 		echo "WLS configuration and key files do not exist. Creating."
-			echo "#######################################################"
+		echo "#######################################################"
 		
-			echo "Enter admin url (ex. t3://$(hostname -s):7001): "
-			read l_adminurl
-			echo "Enter weblogic username: "
-			read l_username
-			echo "Enter weblogic password: "
-			stty -echo
-			read l_password
-			stty echo
+		echo "Enter admin url (ex. t3://$(hostname -s):7001): "
+		read l_adminurl
+		echo "Enter weblogic username: "
+		read l_username
+		echo "Enter weblogic password: "
+		stty -echo
+		read l_password
+		stty echo
 	
-			$JAVA_HOME/bin/java weblogic.Admin \
-			                    -adminurl "${l_adminurl}" \
-			                    -username ${l_username} \
-								-password ${l_password} \
-								-userconfigfile "${WLS_CFG_FILE}" \
-								-userkeyfile "${WLS_KEY_FILE}" \
-								-STOREUSERCONFIG
+		$JAVA_HOME/bin/java weblogic.Admin \
+		                    -adminurl "${l_adminurl}" \
+		                    -username ${l_username} \
+							-password ${l_password} \
+							-userconfigfile "${WLS_CFG_FILE}" \
+							-userkeyfile "${WLS_KEY_FILE}" \
+							-STOREUSERCONFIG
 			
-			if ! [ -f "${WLS_CFG_FILE}"  ] || ! [ -f "${WLS_KEY_FILE}" ] ; then
-				echo "An error occured while creating files. Exiting."
-				exit 1
-			fi
-			
-			chmod 600 "${WLS_CFG_FILE}" "${WLS_KEY_FILE}"
-			ls -l "${WLS_CFG_FILE}" "${WLS_KEY_FILE}"
-
-			echo "#######################################################"
-			echo "Files created. Please restart the script."
-			exit 0
+		if ! [ -f "${WLS_CFG_FILE}"  ] || ! [ -f "${WLS_KEY_FILE}" ] ; then
+			echo "An error occured while creating files. Exiting."
+			exit 1
+		fi
+		
+		chmod 600 "${WLS_CFG_FILE}" "${WLS_KEY_FILE}"
+		ls -l "${WLS_CFG_FILE}" "${WLS_KEY_FILE}"
+		echo "#######################################################"
+		echo "Files created. Please restart the script."
+		exit 0
 	fi
 	
 	return 0
